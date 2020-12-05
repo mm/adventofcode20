@@ -144,5 +144,6 @@ def part_two_solution(input_file):
             valid_passports += 1
     return valid_passports
 
+
 print(f'Valid passports in Part 1: {part_one_solution("inputs/day_4.txt")}')
 print(f'Valid passports in Part 2: {part_two_solution("inputs/day_4.txt")}')
