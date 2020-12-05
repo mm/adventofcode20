@@ -46,26 +46,26 @@ def part_one_solution(filename):
 
 
 def part_two_solution(filename):
-    boarding_passes = []
+    # We'll be checking in this set to find the missing pass:
+    boarding_passes = set()
 
     with open(filename) as in_file:
         for boarding_pass in in_file:
-            boarding_passes.append(boarding_pass_to_id(boarding_pass.strip()))
-    
-    # Create a set of all the boarding passes:
-    boarding_set = set(boarding_passes)
+            boarding_passes.add(boarding_pass_to_id(boarding_pass.strip()))
 
     # Go through the boarding passes, starting at the first boarding pass you see.
-    starting_seat = min(boarding_set)
-    for seat in boarding_set:
+    starting_seat = min(boarding_passes)
+    for seat in boarding_passes:
         # Our missing seat *has* seats on either side filled, so check for a
         # seat that's supposed to be there and isn't, but has filled seats
         # on either side.
-        if starting_seat not in boarding_set:
-            if (starting_seat + 1 in boarding_set) and (starting_seat - 1 in boarding_set):
-                print(f'Missing ID {starting_seat}')
+        if starting_seat not in boarding_passes:
+            # So this seat isn't filled. What about the seats surrounding it?
+            if (starting_seat + 1 in boarding_passes) and (starting_seat - 1 in boarding_passes):
+                return starting_seat
+        # Try the next possible seat
         starting_seat += 1
 
 print(part_one_solution('inputs/day_5.txt'))
 
-part_two_solution('inputs/day_5.txt')
+print(part_two_solution('inputs/day_5.txt'))
